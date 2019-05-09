@@ -20,7 +20,7 @@ entries:
     output: web
     folderitems:
     - title: Overview FHIR Profiles
-      url: /explore.html
+      url: /resources_overview.html
       output: web
     - title: Patient
       url: /api_uec_appointments_entity_patient.html
@@ -60,19 +60,19 @@ entries:
       url: /book_an_appointment.html
       output: web
     - title: Register an appointment
-      url: register_an_appointment.html
+      url: /register_an_appointment.html
       output: web
     - title: Search for appointments
-      url: search_patient_appointments.html
+      url: /search_patient_appointments.html
       output: web
     - title: Get an appointment
-      url: get_an_appointment.html
+      url: /get_an_appointment.html
       output: web
     - title: Cancel an appointment
-      url: cancel_an_appointment.html
+      url: /cancel_an_appointment.html
       output: web
     - title: Cancel a registered appointment
-      url: cancel_registered_appointment.html
+      url: /cancel_registered_appointment.html
       output: web
 
   - title: Help & Support
