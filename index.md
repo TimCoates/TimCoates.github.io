@@ -26,3 +26,7 @@ The implementation does not cover Read, Update or Delete for an Appointment, how
 FHIR Profiles: <a href="explore.html">NHS Scheduling FHIR Profiles</a><br/>
 How to Search for a free slot: <a href="search_free_slots.html">Search free slots</a><br/>
 How to Book an Appointment: <a href="book_an_appointment.html">Book an Appointment</a>
+
+## Glossary ##
+
+A full list of Glossary terms used by NHS Projects can be found at the <a href="https://developer.nhs.uk/library/glossary/" target="_blank">NHS Developer Network - Glossary</a>.

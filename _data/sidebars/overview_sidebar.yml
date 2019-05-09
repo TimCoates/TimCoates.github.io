@@ -18,9 +18,6 @@ entries:
     - title: Release Notes
       url: /overview_release_notes.html
       output: web
-    - title: Glossary
-      url: /overview_glossary.html
-      output: web
 
   - title: FHIR Resources
     output: web
@@ -64,8 +61,8 @@ entries:
       output: web
     - title: Book an appointment
       url: /book_an_appointment.html
-      output: web 
-      
+      output: web
+
   - title: Help & Support
     output: web
     folderitems:
