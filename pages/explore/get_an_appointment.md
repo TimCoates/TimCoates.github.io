@@ -1,16 +1,17 @@
 ---
-title: Book an appointment
+title: Get a specific Appointment
 keywords: getcarerecord, structured, rest, resource
 sidebar: foundations_sidebar
-permalink: book_an_appointment.html
-summary: "Details the Book an Appointment interaction"
+permalink: get_an_appointment.html
+summary: "Details the Get a specific appointment"
 ---
 
 {% include important.html content="Site under development by NHS Digital, It is advised not to develop against these specifications until a formal announcement has been made." %}
 
 ## Use case ##
 
-A consuming system wishes to book an Appointment for a Patient into <a href="search_free_slots.html">a previously retrieved</a> Slot.
+A system requests a specific appointment from either the registry or a Provider system.
+**NB The registry has not yet been delivered.**
 
 ## Security ##
 
@@ -18,41 +19,84 @@ A consuming system wishes to book an Appointment for a Patient into <a href="sea
 - Is routed through the SSP (Spine secure Proxy)
 - Utilises TLS Mutual Authentication for system level authentication.
 
-## Request Body ##
+## Search parameters ##
 
-The request body is sent using an http `POST` method.
+The registry system supports the following search parameters that MAY be passed to the API:
 
-The body is a valid Appointment resource which conforms to <a href='https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-Appointment-1'>the relevant profile</a>
+| Name | Type | Description | Paths |
+|---|---|---|---|
+| `Patient` | reference | The national service identifier of the Patient for whom Slots are being requested | `Appointment.participant.actor` |
 
-The Appointment resource MUST NOT include the following data items:
+## RESTful Query ##
 
-| Name | Description |
-|---|---|
-| id | The identity of the appointment will be assigned by the Providing system at the point of booking, and MUST NOT be included in the request body. |
+The request body is sent using an http `GET` method.
 
+The following query demonstrates a full request for information:
 
-The Appointment resource MUST include the following data items:
+<table>
+<tr>
+<td>
+http://[FHIR base URL]/Appointment<br>
+?Appointment.participant.actor=https://demographics.spineservices.nhs.uk/Patient/1234554321
+</td>
+</tr>
+</table>
+
+## Response ##
+
+### Success ###
+The Registry:
+
+- WILL return a `200` **OK** HTTP status code on successful retrieval of Appointments.
+- WILL include the (Zero to Many) `Appointment` resources which meet the requested criteria.
+- WILL NOT implement <a href='http://hl7.org/fhir/STU3/http.html#paging'>paging as described here</a> to limit the number of resources returned.
+- WILL implement a limit such that Appointments in the past will not be returned.
+
+### Failure ###
+- If the request fails because either no valid JWT is supplied or the supplied JWT failed validation, the response WILL include a status of `403` **Forbidden**.
+This WILL be accompanied by an OperationOutcome resource providing additional detail.
+
+- If the request fails because the query string parameters were invalid or unsupported, the response WILL include a status of `400` **Bad Request**.
+- If the request fails because of a server error, the response WILL include a status of `500` **Internal Server Error**.
+
+Failure responses with a `4xx` status SHOULD NOT be retried without taking steps to address the underlying cause of the failure.
+
+Failure responses with a `500` status MAY be retried.
+
+## Response body structure ##
+The response body WILL be a FHIR `Bundle` resource containing zero to many Appointment resources, meeting the appropriate profile.
+
+### From the registry ###
+Where the request is made against the registry, the resources will contain limited details as defined in <a href='register_an_appointment.html'>Register an Appointment</a>, specifically:
 
 | Name | Value | Description |
 |---|---|---|
-| status | `booked` | Indicates that the Appointment is being created in a `booked` state. |
+| status | `booked` \| `cancelled` \| `entered in error` | Indicates the state of the Appointment. |
+| start | instant | A full timestamp in <a href='http://hl7.org/fhir/STU3/datatypes.html#instant'>FHIR instant</a> format (ISO 8601) of when the Appointment starts |
+| created | instant | When the resource was last updated <a href='http://hl7.org/fhir/STU3/datatypes.html#instant'>FHIR instant</a> format (ISO 8601). |
+| participant | reference | A <a href='https://nhsconnect.github.io/fhir-policy/national-services.html#FHIR-NAT-01'>national service reference</a> to the Patient for whom this Appointment was booked, for example: `https://demographics.spineservices.nhs.uk/Patient/1234567890` where the Patient's NHS Number is 1234567890|
+
+### From a provider system ###
+Where the request is made against a provider system, the resources will contain the details as defined in <a href='book_an_appointment.html'>Book an Appointment</a>, specifically:
+
+| Name | Value | Description |
+|---|---|---|
+| status | `booked` \| `cancelled` \| `entered in error` | Indicates the state of the Appointment. |
 | start | instant | A full timestamp in <a href='http://hl7.org/fhir/STU3/datatypes.html#instant'>FHIR instant</a> format (ISO 8601) |
 | end | instant |  A full timestamp in <a href='http://hl7.org/fhir/STU3/datatypes.html#instant'>FHIR instant</a> format (ISO 8601) |
 | supportingInformation | reference | A reference to a contained resource (see below) which describes an associated document. |
 | description | Call reason | Text describing the need for the appointment, to be shown for example in an appointment list |
-| slot | reference | A reference to the <a href="search_free_slots.html">a previously retrieved</a> Slot. |
-| created | instant | When the appointment is being booked in <a href='http://hl7.org/fhir/STU3/datatypes.html#instant'>FHIR instant</a> format (ISO 8601) |
+| slot | reference | A reference to a Slot. |
+| created | instant | When the appointment was last updated <a href='http://hl7.org/fhir/STU3/datatypes.html#instant'>FHIR instant</a> format (ISO 8601) |
 | participant | reference | A reference to a contained resource (see below) which describes the Patient for whom this Appointment is being booked |
-
-
 
 ### Contained resources ###
 
-The appointment resource MUST have two <a href='http://hl7.org/fhir/STU3/references.html#contained'>contained</a> resources. Note that contained resources are given an identifier which is only required to be unique within the scope of the containing resource, and are referenced using that identifier prefixed with a Hash `#` character.
+The appointment resource WILL have two <a href='http://hl7.org/fhir/STU3/references.html#contained'>contained</a> resources. Note that contained resources are given an identifier which is only required to be unique within the scope of the containing resource, and are referenced using that identifier prefixed with a Hash `#` character.
 
 #### Patient ####
 A contained Patient resource which conforms to the <a href='https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-Patient-1'>Care Connect Patient profile</a>.
-This resource is referenced in the Appointment's participant element, and is used to convey the details of the Patient for whom the Appointment is being booked.
+This resource is referenced in the Appointment's participant element, and is used to convey the details of the Patient for whom the Appointment was booked.
 The Patient resource MUST include the following data items:
 
 | Name | Value | Description |
@@ -83,29 +127,7 @@ The DocumentReference resource MUST include the following data items:
 | content.attachment.contentType | A valid mime type | Indicates the mime type of the document |
 | content.attachment.language | `en` | States that the document is in English |
 
-## Response ##
-
-### Success ###
-Where the request succeeded, the response MUST include a status of `201` **Created**.
-The response MUST include a Location header giving the absolute URL of the created Appointment. This URL MUST remain stable, and the resource SHOULD support RESTful updates using a PUT request to this URL.
-The response body MUST include the created Appointment, this resource MUST include the newly assigned id of the resource.
-
-### Failure ###
-- If the request fails because of a business rule (for example if the requested Slot is no longer free), the response MUST include a status of `422` **Unprocessable Entity** <a href='http://hl7.org/fhir/STU3/http.html#2.21.0.10.1'>as described here</a>.
-This SHOULD be accompanied by an OperationOutcome resource providing additional detail.
-- If the request fails because the request body failed validation against the relevant profiles, the response MUST include a status of `422` **Unprocessable Entity** <a href='http://hl7.org/fhir/STU3/http.html#2.21.0.10.1'>as described here</a>.
-This SHOULD be accompanied by an OperationOutcome resource providing additional detail.
-- If the request fails because either no valid JWT is supplied or the supplied JWT failed validation, the response MUST include a status of `403` **Forbidden**.
-This SHOULD be accompanied by an OperationOutcome resource providing additional detail.
-
-- If the request fails because the request body was simply invalid, the response MUST include a status of `400` **Bad Request**.
-- If the request fails because of a server error, the response MUST include a status of `500` **Internal Server Error**.
-
-Failure responses with a `4xx` status SHOULD NOT be retried without taking steps to address the underlying cause of the failure.
-
-Failure responses with a `500` status MAY be retried.
-
-## Sample request body ##
+## Sample response ##
 
 ```json
 {
@@ -113,6 +135,7 @@ Failure responses with a `500` status MAY be retried.
     "meta": {
         "profile": "https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-Appointment-1"
     },
+    "id": "cfd9eba2-cc66-4195-a70c-10112ab1c838",
     "language": "en",
     "text": "<div>Appointment</div>",
     "contained": [

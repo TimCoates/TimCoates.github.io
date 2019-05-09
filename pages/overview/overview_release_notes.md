@@ -8,6 +8,13 @@ summary: Summary release notes of the versions released in the API Implementatio
 
 {% include important.html content="Site under development by NHS Digital, It is advised not to develop against these specifications until a formal announcement has been made." %}
 
+## 1.0.3-alpha Released: 05-12-2018 ##
+
+- Clarified Search for free slots text and added RESTful parameter query
+- Added DocumentRefeerence resource for attaching CDA documents to Appointments
+- DocumentReference resource added to the example in Book an Appointment
+
+
 ## 1.0.2-alpha Released: 01-11-2018 ##
 
 Changes made in response to the wider team review including business analysts/technical arcitects.

@@ -1,16 +1,16 @@
 ---
-title: Book an appointment
+title: Cancel an appointment
 keywords: getcarerecord, structured, rest, resource
 sidebar: foundations_sidebar
-permalink: book_an_appointment.html
-summary: "Details the Book an Appointment interaction"
+permalink: cancel_an_appointment.html
+summary: "Details the Cancel an Appointment interaction"
 ---
 
 {% include important.html content="Site under development by NHS Digital, It is advised not to develop against these specifications until a formal announcement has been made." %}
 
 ## Use case ##
 
-A consuming system wishes to book an Appointment for a Patient into <a href="search_free_slots.html">a previously retrieved</a> Slot.
+A consuming system wishes to cancel an Appointment which was previously <a href='book_an_appointment.html'>booked</a>.
 
 ## Security ##
 
@@ -20,78 +20,32 @@ A consuming system wishes to book an Appointment for a Patient into <a href="sea
 
 ## Request Body ##
 
-The request body is sent using an http `POST` method.
+The request body is sent using an http `PUT` method.
 
-The body is a valid Appointment resource which conforms to <a href='https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-Appointment-1'>the relevant profile</a>
+The body is a valid Appointment resource which conforms to <a href='https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-Appointment-1'>the relevant profile</a>. **NB The appointment resource MUST be <a href='get_an_appointment.html'>retrieved from the Provider system</a> in order to ensure that no data is lost.**
 
-The Appointment resource MUST NOT include the following data items:
-
-| Name | Description |
-|---|---|
-| id | The identity of the appointment will be assigned by the Providing system at the point of booking, and MUST NOT be included in the request body. |
-
-
-The Appointment resource MUST include the following data items:
+The following data items in the <a href='get_an_appointment.html'>retrieved Appointment</a> resource MUST be changed as defined:
 
 | Name | Value | Description |
 |---|---|---|
-| status | `booked` | Indicates that the Appointment is being created in a `booked` state. |
-| start | instant | A full timestamp in <a href='http://hl7.org/fhir/STU3/datatypes.html#instant'>FHIR instant</a> format (ISO 8601) |
-| end | instant |  A full timestamp in <a href='http://hl7.org/fhir/STU3/datatypes.html#instant'>FHIR instant</a> format (ISO 8601) |
-| supportingInformation | reference | A reference to a contained resource (see below) which describes an associated document. |
-| description | Call reason | Text describing the need for the appointment, to be shown for example in an appointment list |
-| slot | reference | A reference to the <a href="search_free_slots.html">a previously retrieved</a> Slot. |
-| created | instant | When the appointment is being booked in <a href='http://hl7.org/fhir/STU3/datatypes.html#instant'>FHIR instant</a> format (ISO 8601) |
-| participant | reference | A reference to a contained resource (see below) which describes the Patient for whom this Appointment is being booked |
+| status | `cancelled` | Indicates that the Appointment is being changed to a `cancelled` state. |
+| created | instant | When the appointment is being cancelled in <a href='http://hl7.org/fhir/STU3/datatypes.html#instant'>FHIR instant</a> format (ISO 8601) |
 
+**No other elements of the Appointment resource may be changed**
 
+- Provider systems SHOULD store previous versions of the resource to defend against any such loss of data.
+- Provider systems SHOULD reject cancellation requests where differences (other than those described above) are detected between the original and updated resource.
 
-### Contained resources ###
-
-The appointment resource MUST have two <a href='http://hl7.org/fhir/STU3/references.html#contained'>contained</a> resources. Note that contained resources are given an identifier which is only required to be unique within the scope of the containing resource, and are referenced using that identifier prefixed with a Hash `#` character.
-
-#### Patient ####
-A contained Patient resource which conforms to the <a href='https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-Patient-1'>Care Connect Patient profile</a>.
-This resource is referenced in the Appointment's participant element, and is used to convey the details of the Patient for whom the Appointment is being booked.
-The Patient resource MUST include the following data items:
-
-| Name | Value | Description |
-|---|---|---|
-| id | Any | Any identifier, used to reference the resource from the `Appointment.Participant` element |
-| identifier | NHS Number | The Patient's NHS Number as defined in the <a href='https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-Patient-1'>Care Connect Patient profile</a> |
-| name | Patient's name | Name as retrieved from PDS, including Prefix, Given and Family components |
-| telecom | Contact number | The number the Patient can be called back on |
-| gender | `male` \| `female` \| `other` \| `unknown` | The gender as retrieved from PDS |
-| birthdate | yyyy-mm-dd | Patient's DOB |
-| address | Address | Patient's full address as retrieved from PDS |
-
-#### DocumentReference ####
-A contained DocumentReference resource which conforms to <b>TBC</b> profile.
-This resource is referenced in the appointment's supportingInformation element, it describes the type and identifier(s) of any supporting information, for example a CDA document which may be transferred separately.
-The DocumentReference resource MUST include the following data items:
-
-| Name | Value | Description |
-|---|---|---|
-| id | Any | Any identifier, used to reference the resource from the Appointment.supportingInformation element |
-| identifier | see below | Identifies the supporting information (i.e. CDA document) |
-| identifier.system | `https://tools.ietf.org/html/rfc4122` | Indicates that the associated value is a UUID. |
-| identifier.value | [UUID] | The UUID of the associated CDA (XPath: `/ClinicalDocument/id/@root`) |
-| status | "current" | Indicates that the associated document is current. No other value is expected. |
-| type | A value from `urn:oid:2.16.840.1.113883.2.1.3.2.4.18.17` | Indicates the type of document |
-| content | see below | Describes the actual document |
-| content.attachment | Describes the actual document |
-| content.attachment.contentType | A valid mime type | Indicates the mime type of the document |
-| content.attachment.language | `en` | States that the document is in English |
 
 ## Response ##
 
 ### Success ###
-Where the request succeeded, the response MUST include a status of `201` **Created**.
+Where the request succeeded, the response MUST include a status of `200` **OK**.
 The response MUST include a Location header giving the absolute URL of the created Appointment. This URL MUST remain stable, and the resource SHOULD support RESTful updates using a PUT request to this URL.
-The response body MUST include the created Appointment, this resource MUST include the newly assigned id of the resource.
+The response body MUST include the updated Appointment, this resource MUST include the newly assigned id of the resource.
 
 ### Failure ###
-- If the request fails because of a business rule (for example if the requested Slot is no longer free), the response MUST include a status of `422` **Unprocessable Entity** <a href='http://hl7.org/fhir/STU3/http.html#2.21.0.10.1'>as described here</a>.
+- If the request fails because of a business rule (for example if differences are detected between the existing and updated Appointment), the response MUST include a status of `422` **Unprocessable Entity** <a href='http://hl7.org/fhir/STU3/http.html#2.21.0.10.1'>as described here</a>.
 This SHOULD be accompanied by an OperationOutcome resource providing additional detail.
 - If the request fails because the request body failed validation against the relevant profiles, the response MUST include a status of `422` **Unprocessable Entity** <a href='http://hl7.org/fhir/STU3/http.html#2.21.0.10.1'>as described here</a>.
 This SHOULD be accompanied by an OperationOutcome resource providing additional detail.
@@ -113,6 +67,7 @@ Failure responses with a `500` status MAY be retried.
     "meta": {
         "profile": "https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-Appointment-1"
     },
+    "id": "efea8f22-0c33-4000-b4e7-a28569d65e91",
     "language": "en",
     "text": "<div>Appointment</div>",
     "contained": [
@@ -203,7 +158,7 @@ Failure responses with a `500` status MAY be retried.
             ]
         }
     ],
-    "status": "booked",
+    "status": "cancelled",
     "start": "2019-01-17T15:00:00.000Z",
     "end": "2019-01-17T15:10:00.000Z",
     "supportingInformation": [
