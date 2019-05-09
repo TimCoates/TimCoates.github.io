@@ -47,7 +47,7 @@ entries:
       url: /api_uec_appointments_schedule.html
       output: web
     - title: Appointment
-      url: /api_uec_appointments_appointment.html
+      url: /appointment.html
       output: web
 
   - title: Development
