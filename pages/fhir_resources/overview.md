@@ -19,97 +19,16 @@ The “disposition” from the patient interaction (NHS111 call etc) determines 
 
 <img src="images/UEC-Appointments/UEC_Appointments_Flow.png">
 
-<table style="min-width:100%;width:100%">
-<tr id="clinical">
-<th style="width:33%;">Requirement</th>
-<th style="width:33%;">FHIR Resource(s)</th>
-<th style="width:33%;">Key FHIR Elements(s)</th>
-<th style="width:33%;">Status</th>
-</tr>
-<tr>
-<td>Patient</td>
-<td><a href="api_uec_appointments_entity_patient.html">Care Connect Patient</a></td>
-<td>identifier(NHSnumber)<br/>
-Name<br/>
-birthDate<br/>
-Gender</td>
-<td>Existing</td>
-</tr>
-<tr>
-<td>Practitioner</td>
-<td><a href="api_uec_appointments_entity_practitioner.html">Care Connect Practitioner</a></td>
-<td>SDSUserid<br/>
-Name</td>
-<td>Existing</td>
-</tr>
-<tr>
-<td>PractitionerRole</td>
-<td><a href="api_uec_appointments_entity_practitioner_role.html">Care Connect PractitionerRole</a></td>
-<td>SDSJobRoleName</td>
-<td>Existing</td>
-</tr>
-<tr>
-<td>Organization</td>
-<td><a href="api_uec_appointments_organisation.html">Care Connect Organization</a></td>
-<td>type<br/>
-name<br/>
-telecom<br/>
-address<br/>
-contact
-</td>
-<td>Existing</td>
-</tr>
-<tr>
-<td>Location</td>
-<td><a href="api_uec_appointments_location.html">Care Connect Location</a></td>
-<td>status<br/>
-name<br/>
-alias<br/>
-description<br/>
-telecom<br/>
-address<br/>
-managing org<br/>
-part of
-</td>
-<td>Existing</td>
-</tr>
-<tr>
-<td>HealthcareService</td>
-<td><a href="api_uec_appointments_healthcare_service.html">HealthcareService</a></td>
-<td>provided by<br/>
-location<br/>
-name<br/>
-comment<br/>
-telecom
-</td>
-<td>New</td>
-</tr>
-<tr>
-<td>Slot</td>
-<td><a href="api_uec_appointments_slot.html">Slot</a></td>
-<td>schedule<br/>
-status<br/>
-start<br/>
-end<br/>
-service category<br/>
-appointment type
-</td>
-<td>New</td>
-</tr>
-<tr>
-<td>Schedule</td>
-<td><a href="api_uec_appointments_schedule.html">Schedule</a></td>
-<td>actor.reference</td>
-<td>New</td>
-</tr>
-<tr>
-<td>Appointment</td>
-<td><a href="api_uec_appointments_appointment.html">Appointment</a></td>
-<td>status<br/>
-participant.actor<br/>
-reason<br/>
-slot
-</td>
-<td>New</td>
-</tr>
-</table>
+| Resource | Description | Profile |
+| --- | --- | --- |
+| <a href='appointment.html'>Appointment</a> | The appointment that is booked, linking a specific Patient into a specific Slot | <a href='https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-Appointment-1'>CareConnect-Appointment-1</a> |
+| <a href='slot.html'>Slot</a> | A free time period, into which an appointment with a specific Patient can be booked | <a href='https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-Slot-1'>CareConnect-Slot-1</a> |
+| <a href='schedule.html'>Schedule</a> | A grouping of Slots, used to link them to the HealthcareService which the slots are provided as part of | <a href='https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-Schedule-1'>CareConnect-Schedule-1</a> |
+| <a href='practitioner.html'>Practitioner</a> | A Practitioner which may optionally be assigned to deliver a given Schedule | <a href='https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-Practitioner-1'>CareConnect-Practitioner-1</a> |
+| <a href='practitioner_role.html'>PractitionerRole</a> | A PractitionerRole which may optionally be assigned to the delivery of a given Schedule | <a href='https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-PractitionerRole-1'>CareConnect-PractitionerRole-1</a> |
+| <a href='healthcare_service.html'>HealthcareService</a> | A HealthcareService which has been selected from the DoS, and delivers one or more Schedules | <a href='https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-HealthcareService-1'>CareConnect-HealthcareService-1</a> |
+| <a href='organisation.html'>Organization</a> | An Organisation which delivers one or more HealthcareServices | <a href='https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-Organization-1'>CareConnect-Organization-1</a> |
+| <a href='location.html'>Location</a> | A Location at which an Organisation delivers one or more HealthcareServices | <a href='https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-Location-1'>CareConnect-Location-1</a> |
+| <a href='patient.html'>Patient</a> | A Patient for whom an appointment is being booked | <a href='https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-Patient-1'>CareConnect-Patient-1</a> |
+| <a href='document_reference.html'>DocumentReference</a> | A DocumentReference which points to a document which gives information supporting the Appointment | <a href='#'>TBC</a> |
+

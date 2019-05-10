@@ -208,7 +208,7 @@ Failure responses with a `500` status MAY be retried.
                     }
                 ],
                 "providedBy": {
-                    "reference": "Organization/A91545"
+                    "reference": "https://directory.spineservices.nhs.uk/STU3/Organization/RR8"
                 },
                 "location": [
                     {

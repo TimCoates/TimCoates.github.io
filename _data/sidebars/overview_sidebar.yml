@@ -49,6 +49,9 @@ entries:
     - title: Appointment
       url: appointment.html
       output: web
+    - title: DocumentReference
+      url: document_reference.html
+      output: web
 
   - title: Development
     output: web
