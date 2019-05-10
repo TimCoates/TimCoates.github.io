@@ -8,6 +8,15 @@ summary: Summary release notes of the versions released in the API Implementatio
 
 {% include important.html content="Site under development by NHS Digital, It is advised not to develop against these specifications until a formal announcement has been made." %}
 
+## 1.0.4-alpha Released: TBC ##
+
+- Added missing resources.
+- Added overall sequence diagram and more detailed process steps.
+- Added concept of the registry.
+- Cleaned out some redundant files.
+- Added validated example resources.
+- Added links to demonstrator, validator and JWT utilities.
+
 ## 1.0.3-alpha Released: 05-12-2018 ##
 
 - Clarified Search for free slots text and added RESTful parameter query
