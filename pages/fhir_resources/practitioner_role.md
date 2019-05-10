@@ -13,3 +13,29 @@ This resource is optionally returned linked to a <a href='schedule.html'>Schedul
 
 {% include custom/fhir.reference.html resource="PractitionerRole" page="CareConnect-PractitionerRole-1" fhirname="PractitionerRole" fhirlink="practitionerrole.html" content="-" userlink="" %}
 
+## Example resource ##
+```json
+{
+    "resourceType": "PractitionerRole",
+    "id": "1",
+    "practitioner": {
+        "reference": "Practitioner/1",
+        "display": "Dr. AA Bhatia"
+    },
+    "organization": {
+        "reference": "Organization/1",
+        "display": "The Moir Medical Centre"
+    },
+    "code": [
+        {
+            "coding": [
+                {
+                    "system": "https://fhir.hl7.org.uk/STU3/CodeSystem/CareConnect-SDSJobRoleName-1",
+                    "code": "R0260",
+                    "display": "General Medical Practitioner"
+                }
+            ]
+        }
+    ]
+}
+```

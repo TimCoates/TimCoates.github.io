@@ -8,16 +8,28 @@ summary: "This page provides an overview of the FHIR STU3 Resources that are req
 
 {% include important.html content="This site is under development by NHS Digital, It is advised not to develop against these specifications until a formal announcement has been made." %}
 
-## Urgent & Emergency Care Appointments API's ##
+## Background ##
 
-The “disposition” from the patient interaction (NHS111 call etc) determines the urgency (giving the time bounds). The DOS (Directory of Services) will  have been interrogated and an appropriate service for the Patient identified.
+- The “disposition” from the patient interaction (NHS111 call etc) determines the urgency (giving the time constraints).
+- The DoS (Directory of Services) will have been <a href='process.html#getservices'>searched</a> and an appropriate service for the Patient selected.
+- Where the selected service offers appointment Booking, it will include an ASID value.
+- The ASID is used <a href='process.html#find-endpoint'>to locate the FHIR endpoint</a> to be queried.
+- A FHIR RESTful <a href='search_free_slots.html'>Search request is sent</a> to the FHIR endpoint for Slots that meet the time constraints, the ASID is passed as a constraint on the HealthcareService ID.
+- The specified HealthcareService may run zero to many Schedules.
+- Each Schedule may contain zero to many Slots.
+- The Slots are filtered using the Time constraints before being returned in a <a href='http://hl7.org/fhir/stu3/bundle.html#searchset'>searchset Bundle</a>.
 
-- The time bounds and a specific service identifier are passed to the API
-- The provider system searches for free slots within the time period given, for the identified service
-- The Patient (or the 111 call handler) will review the free slots & pick one
-- The provider system will then be sent the slot details & patient detail and will book an appointment into the slot
+<img src="images/UEC-Appointments/ClassDiagram.png">
 
-<img src="images/UEC-Appointments/UEC_Appointments_Flow.png">
+## Appointment structure ##
+
+- The Appointment resource is <a href='book_an_appointment.html'>POSTed to the FHIR endpoint</a> in a FHIR RESTful Create.
+- The Appointment resource refers to a Slot retrieved above.
+- The Appointment resource contains a Patient resource.
+- The Appointment resource contains a DocumentReference resource.
+
+<img src="images/UEC-Appointments/Appointment.png">
+
 
 | Resource | Description | Profile |
 | --- | --- | --- |
