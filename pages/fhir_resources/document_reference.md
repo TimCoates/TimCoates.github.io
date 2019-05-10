@@ -9,13 +9,13 @@ summary: A DocumentReference which is used to point to a Document that contains 
 {% include important.html content="This site is under development by NHS Digital, It is advised not to develop against these specifications until a formal announcement has been made." %}
 
 ## Introduction ##
-This resource is contained within the <a href=''>Appointment</a>, it is also described in the description of the <a href='appointment.html#documentreference'>Appointment</a> resource.
+This resource is contained within the <a href='appointment.html#contained-resources'>Appointment</a>, it is also described in the description of the <a href='appointment.html#documentreference'>Appointment</a> resource.
 
 {% include custom/fhir.reference.html resource="DocumentReference" page="#" fhirname="DocumentReference" fhirlink="document_reference.html" content="-" userlink="" %}
 
+A <a href='http://hl7.org/fhir/stu3/references.html#contained'>contained</a> DocumentReference resource which conforms to <b>TBC</b> profile.
+This resource is referenced in the appointment's supportingInformation element, it describes the type and identifier(s) of any supporting information, for example a CDA document which is transferred separately.
 
-A contained DocumentReference resource which conforms to <b>TBC</b> profile.
-This resource is referenced in the appointment's supportingInformation element, it describes the type and identifier(s) of any supporting information, for example a CDA document which may be transferred separately.
 The DocumentReference resource MUST include the following data items:
 
 ## Key FHIR Elements ##
