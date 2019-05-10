@@ -23,31 +23,31 @@ entries:
       url: /resources_overview.html
       output: web
     - title: Patient
-      url: /api_uec_appointments_entity_patient.html
+      url: /patient.html
       output: web
     - title: Practitioner
-      url: /api_uec_appointments_entity_practitioner.html
+      url: /practitioner.html
       output: web
     - title: PractitionerRole
-      url: /api_uec_appointments_entity_practitioner_role.html
+      url: /practitioner_role.html
       output: web
     - title: Organization
-      url: /api_uec_appointments_organisation.html
+      url: /organisation.html
       output: web
     - title: HealthcareService
-      url: /api_uec_appointments_healthcare_service.html
+      url: /healthcare_service.html
       output: web
     - title: Location
-      url: /api_uec_appointments_location.html
+      url: /location.html
       output: web
     - title: Slot
-      url: /api_uec_appointments_slot.html
+      url: /slot.html
       output: web
     - title: Schedule
-      url: /api_uec_appointments_schedule.html
+      url: /schedule.html
       output: web
     - title: Appointment
-      url: /appointment.html
+      url: appointment.html
       output: web
 
   - title: Development

@@ -37,7 +37,7 @@ The following query demonstrates a full request for information:
 <tr>
 <td>
 http://[FHIR base URL]/Appointment<br>
-?Appointment.participant.actor=https://demographics.spineservices.nhs.uk/Patient/1234554321
+?Appointment.participant.actor=https://demographics.spineservices.nhs.uk|1234554321
 </td>
 </tr>
 </table>
@@ -74,7 +74,7 @@ Where the request is made against the registry, the resources will contain limit
 | status | `booked` \| `cancelled` \| `entered in error` | Indicates the state of the Appointment. |
 | start | instant | A full timestamp in <a href='http://hl7.org/fhir/STU3/datatypes.html#instant'>FHIR instant</a> format (ISO 8601) of when the Appointment starts |
 | created | instant | When the resource was last updated <a href='http://hl7.org/fhir/STU3/datatypes.html#instant'>FHIR instant</a> format (ISO 8601). |
-| participant | reference | A <a href='https://nhsconnect.github.io/fhir-policy/national-services.html#FHIR-NAT-01'>national service reference</a> to the Patient for whom this Appointment was booked, for example: `https://demographics.spineservices.nhs.uk/Patient/1234567890` where the Patient's NHS Number is 1234567890|
+| participant | reference | A <a href='https://nhsconnect.github.io/fhir-policy/national-services.html#FHIR-NAT-01'>national service reference</a> to the Patient for whom this Appointment was booked, for example: `https://demographics.spineservices.nhs.uk|1234567890` where the Patient's NHS Number is 1234567890|
 
 ### From a provider system ###
 Where the request is made against a provider system, the resources will contain the details as defined in <a href='book_an_appointment.html'>Book an Appointment</a>, specifically:
@@ -127,7 +127,34 @@ The DocumentReference resource MUST include the following data items:
 | content.attachment.contentType | A valid mime type | Indicates the mime type of the document |
 | content.attachment.language | `en` | States that the document is in English |
 
-## Sample response ##
+## Sample response from the registry ##
+
+```xml
+<Appointment xmlns="http://hl7.org/fhir">
+    <id value="8f9312e1-ec99-4369-a511-d8f9882d4388"></id>
+    <meta>
+        <profile value="https://profile.url/"></profile>
+    </meta>
+    <identifier>
+        <system value="urn:ietf:rfc:3986"></system>
+        <value value="http://test.nhs.uk/test3"></value>
+    </identifier>
+    <status value="booked"></status>
+    <start value="2019-02-01T10:51:23.620+00:00"></start>
+    <created value="2019-02-06T10:43:22+00:00"></created>
+    <participant>
+        <actor>
+            <identifier>
+                <use value="official"></use>
+                <system value="https://fhir.nhs.uk/Id/nhs-number"></system>
+                <value value="1234554321"></value>
+            </identifier>
+        </actor>
+    </participant>
+</Appointment>
+```
+
+## Sample response from a Provider system ##
 
 ```json
 {

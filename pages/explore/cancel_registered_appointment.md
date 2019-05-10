@@ -23,17 +23,7 @@ The request body is sent using an http `PUT` method.
 
 The body is a valid Appointment resource which conforms to <a href='https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-Appointment-1'>the relevant profile</a>. **NB The appointment resource MUST be <a href='get_an_appointment.html'>retrieved from the Registry</a> in order to ensure that no data is lost.**
 
-The following data items in the <a href='get_an_appointment.html'>retrieved Appointment</a> resource MUST be changed as defined:
-
-| Name | Value | Description |
-|---|---|---|
-| status | `cancelled` | Indicates that the Appointment is being changed to a `cancelled` state. |
-| created | instant | When the appointment is being cancelled in <a href='http://hl7.org/fhir/STU3/datatypes.html#instant'>FHIR instant</a> format (ISO 8601) |
-
-**No other elements of the Appointment resource may be changed**
-
-- The registry WILL reject cancellation requests where differences (other than those described above) are detected between the original and updated resource.
-
+- The registry WILL reject cancellation requests where differences (other than those specified) are detected between the original and updated resource.
 
 ## Response ##
 
