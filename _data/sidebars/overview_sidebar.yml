@@ -59,6 +59,9 @@ entries:
   - title: Development
     output: web
     folderitems:
+    - title: Overview
+      url: /developing.html
+      output: web
     - title: Search for free slots
       url: /search_free_slots.html
       output: web
