@@ -2,14 +2,17 @@
 title: Registry Overview
 keywords: homepage
 sidebar: overview_sidebar
-permalink: registry_overview.html.html
+permalink: registry_overview.html
 toc: false
 summary: An overview of the Appointment Registry
 ---
 
 {% include important.html content="This site is under development by NHS Digital, It is advised not to develop against these specifications until a formal announcement has been made." %}
 
-# Sequence Diagram #
+# Background #
+In order to support the ability for any service to be able to find and subsequently update or cancel an existing Appointment which is booked for a Patient, Appointments will be indexed in a registry. This registry will then support searching for Appointments for a given Patient, returning an Appointment resource, which has an Identifier that acts as a Pointer to the original Appointment resource. The details of this pointer can bee seen on the <a href='appointment.html#key-fhir-elements-for-registering'>descripton of the Appointment resource</a> for registering an Appointment.
+
+## Sequence Diagram ##
 
 The process for registering an Appointment in the Registry is shown below.
 

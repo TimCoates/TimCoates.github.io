@@ -182,11 +182,8 @@ This is the process of the Consuming system user and the Patient agreeing on the
 ### Book ###
 This is the process of sending a booked appointment, including details of the Patient and an associated (CDA) document from the Consuming system to the Provider system, and is <a href='book_an_appointment.html'>described in detail here</a>.
 
-### Get Token ###
-This is the same process as is <a href='#get-token'>defined above</a>, however here it is being used to get a JWT Token to be used against the Registry.
-
-### Register ###
-This is the process of recording in a central registry the details of the appointment that was booked. This is to support subsequent location of that appointment in case it needs to be cancelled It is <a href='register_an_appointment.html'>described in detail here</a>.
+## Registering the Appointment ##
+As described booked Appointments subsequently need to be<a href='registry.html'>registered in the Registry</a>.
 
 ## Quick Links ##
 
