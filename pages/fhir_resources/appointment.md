@@ -45,17 +45,17 @@ The following FHIR elements are key to this implementation when <a href='book_an
 
 See <a href='#booking-example-resource'>example resource</a>.
 
-The Appointment resource MUST NOT include the following data items:
+The Appointment resource **MUST NOT** include the following data items:
 
 | Name | Description |
 |---|---|
-| id | The identity of the appointment will be assigned by the Providing system at the point of booking, and MUST NOT be included in the request body. |
+| id | The identity of the appointment will be assigned by the Providing system at the point of booking, and **MUST NOT** be included in the request body. |
 
-The Appointment resource MUST include the following data items:
+The Appointment resource **MUST** include the following data items:
 
 | Element | Cardinality | Description | Example(s) |
 | --- | --- | --- | --- |
-| status | [1..1] | Status of this Appointment | Must be one of: `booked` \| `cancelled` \| `entered in error` |
+| status | [1..1] | Status of this Appointment | **MUST** be one of: `booked` \| `cancelled` \| `entered in error` |
 | contained | [1..1] | Contained resources |  |
 | contained[0] | [1..1] | A Contained DocumentReference resource conforming to **TBC** profile. | **See example resource below** |
 | contained[1] | [1..1] | A Contained Patient resource conforming to <a href='https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-Patient-1'>CareConnect-Patient-1</a> profile. | **See example resource below** |
@@ -71,14 +71,14 @@ The Appointment resource MUST include the following data items:
 
 ### Contained resources ###
 
-The appointment resource MUST have two <a href='http://hl7.org/fhir/STU3/references.html#contained'>contained</a> resources. Note that contained resources are given an identifier which is only required to be unique within the scope of the containing resource, and are referenced using that identifier prefixed with a Hash `#` character.
+The appointment resource **MUST** have two <a href='http://hl7.org/fhir/STU3/references.html#contained'>contained</a> resources. Note that contained resources are given an identifier which is only required to be unique within the scope of the containing resource, and are referenced using that identifier prefixed with a Hash `#` character.
 
 
 
 #### Patient ####
 A contained Patient resource which conforms to the <a href='https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-Patient-1'>Care Connect Patient profile</a>.
 This resource is referenced in the Appointment's participant element, and is used to convey the details of the Patient for whom the Appointment is being booked.
-The Patient resource MUST include the following data items:
+The Patient resource **MUST** include the following data items:
 
 | Name | Value | Description |
 |---|---|---|
@@ -95,7 +95,7 @@ The Patient resource MUST include the following data items:
 #### DocumentReference ####
 A contained DocumentReference resource which conforms to <b>TBC</b> profile.
 This resource is referenced in the appointment's supportingInformation element, it describes the type and identifier(s) of any supporting information, for example a CDA document which may be transferred separately.
-The DocumentReference resource MUST include the following data items:
+The DocumentReference resource **MUST** include the following data items:
 
 | Name | Value | Description |
 |---|---|---|
@@ -121,22 +121,22 @@ The following FHIR elements are key to this implementation when <a href='registe
 
 See <a href='##registering-example-resource'>example resource</a>.
 
-When registering, the Appointment resource MUST NOT include the following data items:
+When registering, the Appointment resource **MUST NOT** include the following data items:
 
 | Name | Description |
 |---|---|
-| id | The identity of the appointment will be assigned by the Providing system at the point of booking, and MUST NOT be included in the request body. |
+| id | The identity of the appointment will be assigned by the Providing system at the point of booking, and **MUST NOT** be included in the request body. |
 | contained | No additional resources should be contained in the appointment |
 | end | The appointment end time is not required. |
 | supportingInformation | No supporting Information should be included in the registry. |
 | description | No description should be included in the registry. |
 | slot | The details of the slot are irrelevant for the purposes of the registry. |
 
-When registering, the Appointment resource MUST include the following data items:
+When registering, the Appointment resource **MUST** include the following data items:
 
 | Element | Cardinality | Description | Example(s) |
 | --- | --- | --- | --- |
-| status | [1..1] | Status of this Appointment | Must be one of: `booked` \| `cancelled` \| `entered in error` |
+| status | [1..1] | Status of this Appointment | **MUST** be one of: `booked` \| `cancelled` \| `entered in error` |
 | start | [1..1] | The time the Appointment starts in <a href='http://hl7.org/fhir/STU3/datatypes.html#instant'>FHIR instant</a> format (ISO 8601) | 2019-01-17T15:00:00.000Z |
 | created | [1..1] | When the appointment is being registered <a href='http://hl7.org/fhir/STU3/datatypes.html#instant'>FHIR instant</a> format (ISO 8601). | `2019-01-17T15:00:00.000Z` |
 | identifier | [1..1] | The details of the appointment which is being registered | ... |
@@ -156,7 +156,7 @@ The body is a valid Appointment resource which conforms to <a href='https://fhir
 
 See <a href='##cancelling-example-resource'>example resource</a>.
 
-The following data items in the <a href='get_an_appointment.html'>retrieved Appointment</a> resource MUST be changed as defined:
+The following data items in the <a href='get_an_appointment.html'>retrieved Appointment</a> resource **MUST** be changed as defined:
 
 | Name | Value | Description |
 |---|---|---|
@@ -177,7 +177,7 @@ The body is a valid Appointment resource which conforms to <a href='https://fhir
 
 See <a href='#cancelling-registered-appointment-example-resource'>example resource</a>.
 
-The following data items in the <a href='get_an_appointment.html'>retrieved Appointment</a> resource MUST be changed as defined:
+The following data items in the <a href='get_an_appointment.html'>retrieved Appointment</a> resource **MUST** be changed as defined:
 
 | Name | Value | Description |
 |---|---|---|

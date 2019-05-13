@@ -16,7 +16,7 @@ This resource is contained within the <a href='appointment.html#contained-resour
 A <a href='http://hl7.org/fhir/stu3/references.html#contained'>contained</a> DocumentReference resource which conforms to <b>TBC</b> profile.
 This resource is referenced in the appointment's supportingInformation element, it describes the type and identifier(s) of any supporting information, for example a CDA document which is transferred separately.
 
-The DocumentReference resource MUST include the following data items:
+The DocumentReference resource **MUST** include the following data items:
 
 ## Key FHIR Elements ##
 

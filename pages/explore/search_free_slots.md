@@ -20,7 +20,7 @@ A consuming system requests available slots from a provider system matching the 
 
 ## Search parameters ##
 
-Provider systems MUST support the following search parameters that MAY be passed to the API:
+Provider systems **MUST** support the following search parameters that **MAY** be passed to the API:
 
 | Name | Type | Description | Paths |
 |---|---|---|---|
@@ -29,11 +29,11 @@ Provider systems MUST support the following search parameters that MAY be passed
 | `start` | `date` | Slot start date/time. | `start` |
 | `start` | `date` | Slot start date/time. | `start` |
 
-NB start is included twice to allow for the definition of the start and end of 'The time window within which Slots must start'.
+**NB start is included twice to allow for the definition of the start and end of 'The time window within which Slots must start'**.
 
 ## _include parameters ##
 
-Provider systems MUST support the following include parameters:
+Provider systems **MUST** support the following include parameters:
 
 | Name | Description | Paths |
 |---|---|---|
@@ -73,25 +73,25 @@ http://[FHIR base URL]/Slot<br />
 ### Success ###
 Provider systems:
 
-- MUST return a `200` **OK** HTTP status code on successful retrieval of "free" slot details.
-- MUST include the  `Slot` resources which meet the requested criteria.
-- MAY implement <a href='http://hl7.org/fhir/STU3/http.html#paging'>paging as described here</a> to limit the number of resources returned.
-- MAY implement an upper limit on returned Slots that excludes Slots which would fall into the requested time window.
+- **MUST** return a `200` **OK** HTTP status code on successful retrieval of "free" slot details.
+- **MUST** include the  `Slot` resources which meet the requested criteria.
+- **MAY** implement <a href='http://hl7.org/fhir/STU3/http.html#paging'>paging as described here</a> to limit the number of resources returned.
+- **MAY** implement an upper limit on returned Slots that excludes Slots which would fall into the requested time window.
 
-The response `Bundle` MUST only contain resources related to the returned `Slot` resources. If no free slots are returned then no resources should be returned within the response `Bundle`. Related resources SHOULD not be duplicated (where for example they are related to multiple Slots).
+The response `Bundle` **MUST** only contain resources related to the returned `Slot` resources. If no free slots are returned then no resources **SHOULD** be returned within the response `Bundle`. Related resources **SHOULD NOT** be duplicated (where for example they are related to multiple Slots).
 
 ### Failure ###
 Provider systems:
 
-- If the request fails because either no valid JWT is supplied or the supplied JWT failed validation, the response MUST include a status of `403` **Forbidden**.
-This MUST be accompanied by an OperationOutcome resource providing additional detail.
+- If the request fails because either no valid JWT is supplied or the supplied JWT failed validation, the response **MUST** include a status of `403` **Forbidden**.
+This **MUST** be accompanied by an OperationOutcome resource providing additional detail.
 
-- If the request fails because the query string parameters were invalid or unsupported, the response MUST include a status of `400` **Bad Request**.
-- If the request fails because of a server error, the response MUST include a status of `500` **Internal Server Error**.
+- If the request fails because the query string parameters were invalid or unsupported, the response **MUST** include a status of `400` **Bad Request**.
+- If the request fails because of a server error, the response **MUST** include a status of `500` **Internal Server Error**.
 
-Failure responses with a `4xx` status SHOULD NOT be retried without taking steps to address the underlying cause of the failure.
+Failure responses with a `4xx` status **SHOULD NOT** be retried without taking steps to address the underlying cause of the failure.
 
-Failure responses with a `500` status MAY be retried.
+Failure responses with a `500` status **MAY** be retried.
 
 ## Sample response ##
 

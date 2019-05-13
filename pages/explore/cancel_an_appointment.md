@@ -22,30 +22,30 @@ A consuming system wishes to cancel an Appointment which was previously <a href=
 
 The request body is sent using an http `PUT` method.
 
-The body is a valid Appointment resource which conforms to <a href='https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-Appointment-1'>the relevant profile</a>. **NB The appointment resource MUST be <a href='get_an_appointment.html'>retrieved from the Provider system</a> in order to ensure that no data is lost.**, for full details of the payload body, see the <a href='appointment.html'>Appointment resource details</a>.
+The body is a valid Appointment resource which conforms to <a href='https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-Appointment-1'>the relevant profile</a>. **NB The appointment resource **MUST** be <a href='get_an_appointment.html'>retrieved from the Provider system</a> in order to ensure that no data is lost.**, for full details of the payload body, see the <a href='appointment.html'>Appointment resource details</a>.
 
-- Provider systems SHOULD store previous versions of the resource to defend against any such loss of data.
-- Provider systems SHOULD reject cancellation requests where differences (other than those specified) are detected between the original and updated resource.
+- Provider systems **SHOULD** store previous versions of the resource to defend against any such loss of data.
+- Provider systems **SHOULD** reject cancellation requests where differences (other than those specified) are detected between the original and updated resource.
 
 ## Response ##
 
 ### Success ###
-Where the request succeeded, the response MUST include a status of `200` **OK**.
-The response MUST include a Location header giving the absolute URL of the created Appointment. This URL MUST remain stable, and the resource SHOULD support RESTful updates using a PUT request to this URL.
-The response body MUST include the updated Appointment, this resource MUST include the newly assigned id of the resource.
+Where the request succeeded, the response **MUST** include a status of `200` **OK**.
+The response **MUST** include a Location header giving the absolute URL of the created Appointment. This URL **MUST** remain stable, and the resource **SHOULD** support RESTful updates using a PUT request to this URL.
+The response body **MUST** include the updated Appointment, this resource **MUST** include the newly assigned id of the resource.
 
 ### Failure ###
-- If the request fails because of a business rule (for example if differences are detected between the existing and updated Appointment), the response MUST include a status of `422` **Unprocessable Entity** <a href='http://hl7.org/fhir/STU3/http.html#2.21.0.10.1'>as described here</a>.
-This SHOULD be accompanied by an OperationOutcome resource providing additional detail.
-- If the request fails because the request body failed validation against the relevant profiles, the response MUST include a status of `422` **Unprocessable Entity** <a href='http://hl7.org/fhir/STU3/http.html#2.21.0.10.1'>as described here</a>.
-This SHOULD be accompanied by an OperationOutcome resource providing additional detail.
-- If the request fails because either no valid JWT is supplied or the supplied JWT failed validation, the response MUST include a status of `403` **Forbidden**.
-This SHOULD be accompanied by an OperationOutcome resource providing additional detail.
+- If the request fails because of a business rule (for example if differences are detected between the existing and updated Appointment), the response **MUST** include a status of `422` **Unprocessable Entity** <a href='http://hl7.org/fhir/STU3/http.html#2.21.0.10.1'>as described here</a>.
+This **SHOULD** be accompanied by an OperationOutcome resource providing additional detail.
+- If the request fails because the request body failed validation against the relevant profiles, the response **MUST** include a status of `422` **Unprocessable Entity** <a href='http://hl7.org/fhir/STU3/http.html#2.21.0.10.1'>as described here</a>.
+This **SHOULD** be accompanied by an OperationOutcome resource providing additional detail.
+- If the request fails because either no valid JWT is supplied or the supplied JWT failed validation, the response **MUST** include a status of `403` **Forbidden**.
+This **SHOULD** be accompanied by an OperationOutcome resource providing additional detail.
 
-- If the request fails because the request body was simply invalid, the response MUST include a status of `400` **Bad Request**.
-- If the request fails because of a server error, the response MUST include a status of `500` **Internal Server Error**.
+- If the request fails because the request body was simply invalid, the response **MUST** include a status of `400` **Bad Request**.
+- If the request fails because of a server error, the response **MUST** include a status of `500` **Internal Server Error**.
 
-Failure responses with a `4xx` status SHOULD NOT be retried without taking steps to address the underlying cause of the failure.
+Failure responses with a `4xx` status **SHOULD NOT** be retried without taking steps to address the underlying cause of the failure.
 
-Failure responses with a `500` status MAY be retried.
+Failure responses with a `500` status **MAY** be retried.
 

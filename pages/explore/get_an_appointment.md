@@ -97,7 +97,7 @@ The appointment resource WILL have two <a href='http://hl7.org/fhir/STU3/referen
 #### Patient ####
 A contained Patient resource which conforms to the <a href='https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-Patient-1'>Care Connect Patient profile</a>.
 This resource is referenced in the Appointment's participant element, and is used to convey the details of the Patient for whom the Appointment was booked.
-The Patient resource MUST include the following data items:
+The Patient resource **MUST** include the following data items:
 
 | Name | Value | Description |
 |---|---|---|
@@ -112,7 +112,7 @@ The Patient resource MUST include the following data items:
 #### DocumentReference ####
 A contained DocumentReference resource which conforms to <b>TBC</b> profile.
 This resource is referenced in the appointment's supportingInformation element, it describes the type and identifier(s) of any supporting information, for example a CDA document which may be transferred separately.
-The DocumentReference resource MUST include the following data items:
+The DocumentReference resource **MUST** include the following data items:
 
 | Name | Value | Description |
 |---|---|---|

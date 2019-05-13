@@ -33,19 +33,19 @@ The response WILL include a Location header giving the absolute URL of the creat
 The response body WILL include the updated Appointment.
 
 ### Failure ###
-- If the request fails because of a business rule (for example if differences are detected between the existing and updated Appointment), the response WILL include a status of `422` **Unprocessable Entity** <a href='http://hl7.org/fhir/STU3/http.html#2.21.0.10.1'>as described here</a>.
+- If the request fails because of a business rule (for example if differences are detected between the existing and updated Appointment), the response **WILL** include a status of `422` **Unprocessable Entity** <a href='http://hl7.org/fhir/STU3/http.html#2.21.0.10.1'>as described here</a>.
 This WILL be accompanied by an OperationOutcome resource providing additional detail.
-- If the request fails because the request body failed validation against the relevant profiles, the response WILL include a status of `422` **Unprocessable Entity** <a href='http://hl7.org/fhir/STU3/http.html#2.21.0.10.1'>as described here</a>.
-This WILL be accompanied by an OperationOutcome resource providing additional detail.
-- If the request fails because either no valid JWT is supplied or the supplied JWT failed validation, the response WILL include a status of `403` **Forbidden**.
-This WILL be accompanied by an OperationOutcome resource providing additional detail.
+- If the request fails because the request body failed validation against the relevant profiles, the response **WILL** include a status of `422` **Unprocessable Entity** <a href='http://hl7.org/fhir/STU3/http.html#2.21.0.10.1'>as described here</a>.
+This **WILL** be accompanied by an OperationOutcome resource providing additional detail.
+- If the request fails because either no valid JWT is supplied or the supplied JWT failed validation, the response **WILL** include a status of `403` **Forbidden**.
+This **WILL** be accompanied by an OperationOutcome resource providing additional detail.
 
-- If the request fails because the request body was simply invalid, the response WILL include a status of `400` **Bad Request**.
-- If the request fails because of a server error, the response WILL include a status of `500` **Internal Server Error**.
+- If the request fails because the request body was simply invalid, the response **WILL** include a status of `400` **Bad Request**.
+- If the request fails because of a server error, the response **WILL** include a status of `500` **Internal Server Error**.
 
-Failure responses with a `4xx` status SHOULD NOT be retried without taking steps to address the underlying cause of the failure.
+Failure responses with a `4xx` status **SHOULD NOT** be retried without taking steps to address the underlying cause of the failure.
 
-Failure responses with a `500` status MAY be retried.
+Failure responses with a `500` status **MAY** be retried.
 
 ## Sample request body ##
 

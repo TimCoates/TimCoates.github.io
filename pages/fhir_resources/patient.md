@@ -19,7 +19,7 @@ The following FHIR elements are key to this implementation :
 
 See <a href='#example-resource'>example resource</a>.
 
-The Appointment resource MUST include the following data items:
+The Patient resource **MUST** include the following data items:
 
 | Element | Cardinality | Description | Example(s) |
 | --- | --- | --- | --- |

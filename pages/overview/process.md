@@ -165,11 +165,13 @@ The response to this will be something like:
 }
 ```
 
-Requests to Provider systems MUST include a http header as below (using the above token as an example) with a Key of Authorization and a value of `Bearer ` + the value in `access_token` from the above response:
+Requests to Provider systems **MUST** include a http header as below (using the above token as an example) with a Key of Authorization and a value of `Bearer ` + the value in `access_token` from the above response:
 
 | Key | Value |
 | --- | --- |
 | Authorization | Bearer eyJ0eXAi... shortened for display ...QHQOqJWU2ToLA |
+
+NB: This is in addition to <a href='developing.html#use-of-the-ssp-and-associated-http-headers'>http request headers required by the SSP</a>.
 
 ### Get Slots ###
 This is the process to find availability at the selected service, it is <a href='search_free_slots.html'>described in detail here</a>.
