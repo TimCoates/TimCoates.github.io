@@ -10,7 +10,7 @@ summary: A brief introduction to getting started with the FHIR NHS Scheduling AP
 {% include important.html content="This site is under development by NHS Digital, It is advised not to develop against these specifications until a formal announcement has been made." %}
 
 # Introduction #
-
+This API was previously called "FHIR-A2SI-APPOINTMENTS-API", it has been renamed to make it more closely reflect the purpose.
 This API is still in development, it has been designed around an Urgent & Emergency Care scenario.
 
 ## In Scope ##
