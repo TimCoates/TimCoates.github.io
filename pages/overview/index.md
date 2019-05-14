@@ -11,10 +11,9 @@ summary: A brief introduction to getting started with the FHIR NHS Scheduling AP
 
 # Introduction #
 This API was previously called "FHIR-A2SI-APPOINTMENTS-API", it has been renamed to make it more closely reflect the purpose.
-This API is still in development, it has been designed around an Urgent & Emergency Care scenario.
 
 ## In Scope ##
-The initial scope is to book from NHS111 services into UTC services, however an attempt has been made to avoid constraints which limit the applicability of this specification.
+The initial scope is to book from NHS111 services into UTC services, however an attempt has been made to avoid constraints which limit the applicability of this specification. The specifics of this use case are <a href='https://developer.nhs.uk/apis/uec-appointments/'>detailed more fully here</a>.
 
 ## Out of Scope ##
 This specification does not cover the transfer of the supporting information (currently a CDA) which describes the Patient's journey prior to the appointment.
