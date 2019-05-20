@@ -330,7 +330,7 @@ The following data items in the <a href='get_an_appointment.html'>retrieved Appo
 ```xml
 <Appointment xmlns="http://hl7.org/fhir">
     <meta>
-        <profile value="https://profile.url/"></profile>
+        <profile value="https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-Appointment-1"></profile>
     </meta>
     <identifier>
         <system value="urn:ietf:rfc:3986"></system>
